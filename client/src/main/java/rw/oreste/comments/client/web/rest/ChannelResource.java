@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
+import rw.oreste.comments.client.dao.ChannelDTO;
 import rw.oreste.comments.client.utils.ApiResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,11 +30,6 @@ public class ChannelResource {
     @GetMapping("/search")
     public String searchChannel() {
         return "/channels/search";
-    }
-
-    @GetMapping("/list")
-    public String listChannels() {
-        return "channels/list";
     }
 
     @PostMapping("/search")
@@ -55,8 +52,10 @@ public class ChannelResource {
             model.addAttribute("searchKeyword", searchKeyword);
             return "/channels/search";
         }
-        model.addAttribute("channels", response.getData());
-        return "channels/list";
+        List<ChannelDTO> channels = (List<ChannelDTO>) response.getData();
+        model.addAttribute("channels", channels);
+        model.addAttribute("searchKeyword", searchKeyword);
+        return "channels/search";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", e.getMessage());

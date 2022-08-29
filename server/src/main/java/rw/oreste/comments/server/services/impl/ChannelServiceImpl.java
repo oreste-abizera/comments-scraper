@@ -20,7 +20,7 @@ public class ChannelServiceImpl implements ChannelService {
     public List<ChannelDTO> searchChannels(SearchDTO searchDTO) {
         String searchKeyword = searchDTO.getSearchKeyword();
         RestTemplate restTemplate = new RestTemplate();
-        ChannelsResponse res = restTemplate.getForObject("https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + searchKeyword + "&type=channel&key="+apiKey, ChannelsResponse.class);
+        ChannelsResponse res = restTemplate.getForObject("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=" + searchKeyword + "&type=channel&key="+apiKey, ChannelsResponse.class);
         return res.getItems();
     }
 }
