@@ -38,9 +38,10 @@ public class ChannelResource {
     @PostMapping("/search")
     public String searchChannel(HttpServletRequest request, Model model){
         String searchKeyword = request.getParameter("searchKeyword");
-        if(Objects.isNull(searchKeyword)){
-            model.addAttribute("message", "Please enter a search keyword");
-            return "redirect:/channels/search";
+        if(searchKeyword == null || searchKeyword.isEmpty() || searchKeyword.trim().isEmpty()){
+            model.addAttribute("error", "Please enter a search keyword");
+            model.addAttribute("searchKeyword", searchKeyword);
+            return "/channels/search";
         }
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> requestBody = new HashMap<>();
@@ -50,7 +51,8 @@ public class ChannelResource {
         ApiResponse response = restTemplate.postForObject(formatURL("channels/search"), requestEntity, ApiResponse.class);
         if(!response.isSuccess()){
             model.addAttribute("message", response.getMessage());
-            return "redirect:/channels/search";
+            model.addAttribute("searchKeyword", searchKeyword);
+            return "/channels/search";
         }
         model.addAttribute("channels", response.getData());
         return "channels/list";
