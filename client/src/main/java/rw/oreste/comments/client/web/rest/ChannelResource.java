@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +31,12 @@ public class ChannelResource {
     @GetMapping("/search")
     public String searchChannel() {
         return "/channels/search";
+    }
+
+    @GetMapping("/view/{channelId}")
+    public String viewChannel(@PathVariable String channelId, Model model) {
+        model.addAttribute("channelId", channelId);
+        return "/channels/view";
     }
 
     @PostMapping("/search")

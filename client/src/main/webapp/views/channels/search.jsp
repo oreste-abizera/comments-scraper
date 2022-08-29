@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <h5 class="card-title">${channel.snippet.title}</h5>
                             <p class="card-text">${channel.snippet.description}</p>
-                            <a href="/channels/view/${channel.id}" class="btn btn-primary">View</a>
+                            <a href="/channels/view/${channel.id.channelId}?title=${channel.snippet.title}&description=${channel.snippet.description}&image=${channel.snippet.thumbnails.medium.url}" class="btn btn-primary">View</a>
                         </div>
                     </div>
                 </div>
