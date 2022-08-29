@@ -48,13 +48,20 @@ public class ChannelResource {
         requestBody.put("searchKeyword", searchKeyword);
 
         HttpEntity requestEntity = new HttpEntity(requestBody);
-        ApiResponse response = restTemplate.postForObject(formatURL("channels/search"), requestEntity, ApiResponse.class);
+        try {
+        ApiResponse response = restTemplate.postForObject(formatURL("/channels/search"), requestEntity, ApiResponse.class);
         if(!response.isSuccess()){
-            model.addAttribute("message", response.getMessage());
+            model.addAttribute("error", response.getMessage());
             model.addAttribute("searchKeyword", searchKeyword);
             return "/channels/search";
         }
         model.addAttribute("channels", response.getData());
         return "channels/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("searchKeyword", searchKeyword);
+            return "/channels/search";
+        }
     }
 }
