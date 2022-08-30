@@ -22,7 +22,6 @@ public class CommentThreadController {
 
     @PostMapping("/search")
     public ApiResponse search(@Valid @RequestBody CommentsSearchDTO searchDTO) {
-        return ApiResponse.badRequest("Error Message From Backend!", null);
-//        return ApiResponse.success(commentThreadService.searchComments(searchDTO));
+        return ApiResponse.success(commentThreadService.searchComments(searchDTO));
     }
 }

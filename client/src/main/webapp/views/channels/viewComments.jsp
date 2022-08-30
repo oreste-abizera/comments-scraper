@@ -25,6 +25,35 @@
         </div>
     </c:if>
 
+    <c:if test="${not empty comments}">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Comments</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <c:forEach items="${comments}" var="comment">
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12" style="display: flex; gap: 20px; align-items: center">
+                                            <div>
+                                                <img class="img-fluid rounded-circle" style="border-radius: 50%" src="${comment.snippet.topLevelComment.snippet.authorProfileImageUrl}" alt="${comment.snippet.topLevelComment.snippet.authorDisplayName}" referrerpolicy="no-referrer">
+                                            </div>
+                                            <div>
+                                            <h4>${comment.snippet.topLevelComment.snippet.authorDisplayName}</h4>
+                                            <p>${comment.snippet.topLevelComment.snippet.textDisplay}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
 </div>
 <%@ include file="../components/layout/page-footer.jsp" %>
 </body>

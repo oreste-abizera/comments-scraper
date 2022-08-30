@@ -31,6 +31,7 @@ public class CommentsResource {
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("channelId", channelId);
         HttpEntity requestEntity = new HttpEntity(requestBody);
+        try {
         ApiResponse response = restTemplate.postForObject(formatURL("/comments/search"), requestEntity, ApiResponse.class);
         if(!response.isSuccess()){
             model.addAttribute("error", response.getMessage());
@@ -39,6 +40,10 @@ public class CommentsResource {
         List<CommentThreadDTO> commentThreads = (List<CommentThreadDTO>) response.getData();
         model.addAttribute("comments", commentThreads);
         return "channels/viewComments";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "/channels/viewComments";
+        }
     }
 
 
