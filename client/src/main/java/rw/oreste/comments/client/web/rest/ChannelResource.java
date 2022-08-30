@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import rw.oreste.comments.client.dao.ChannelDTO;
+import rw.oreste.comments.client.dao.CommentThreadDTO;
 import rw.oreste.comments.client.utils.ApiResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,4 +71,5 @@ public class ChannelResource {
             return "/channels/search";
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package rw.oreste.comments.server.utils.dtos;
+package rw.oreste.comments.client.dao;
 
 import lombok.Data;
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <%@ include file="../components/layout/page-header.jsp" %>
@@ -10,7 +11,7 @@
     String image = request.getParameter("image");
 %>
 <div class="mt-5 container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px">
         <div class="col-md-12" style="display: flex;flex-direction: column; align-items: center">
             <h1 class="text-center"><%= title %></h1>
             <p class="text-center col-sm-6"><%= description %></p>
@@ -18,12 +19,12 @@
         </div>
     </div>
 
-    <form class="row" style="margin-top: 40px">
-        <div class="col-md-12" style="display: flex;flex-direction: column; align-items: center">
-            <a class="btn btn-primary" href="/channels/view/${channelId}/comments?title=<%= title %>&description=<%= description %>&image=<%= image %>">
-            Search Comments</a>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert" style="margin-bottom: 20px;">
+                ${error}
         </div>
-    </form>
+    </c:if>
+
 </div>
 <%@ include file="../components/layout/page-footer.jsp" %>
 </body>
