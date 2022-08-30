@@ -11,6 +11,6 @@ public class ChannelsResponse {
     private String kind;
     private String etag;
     private List<ChannelDTO> items;
-//    private PageInfo pageInfo;
+    private PageInfo pageInfo;
     private String regionCode;
 }
