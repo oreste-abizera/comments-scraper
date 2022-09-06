@@ -13,9 +13,8 @@ import rw.oreste.comments.client.dao.CommentThreadDTO;
 import rw.oreste.comments.client.utils.ApiResponse;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static rw.oreste.comments.client.utils.Utility.formatURL;
 
@@ -28,10 +27,12 @@ public class CommentsResource {
     @GetMapping
     public String index(@PathVariable String channelId, Model model, HttpServletRequest request) {
         Integer limit = request.getParameter("limit") == null ? 20 : Integer.parseInt(request.getParameter("limit"));
+        String searchKeyword = request.getParameter("searchKeyword");
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("channelId", channelId);
         requestBody.put("maxResults", limit.toString());
+        requestBody.put("searchKeyword", searchKeyword);
         HttpEntity requestEntity = new HttpEntity(requestBody);
         try {
         ApiResponse response = restTemplate.postForObject(formatURL("/comments/search"), requestEntity, ApiResponse.class);
@@ -39,9 +40,11 @@ public class CommentsResource {
             model.addAttribute("error", response.getMessage());
             return "/channels/viewComments";
         }
-        List<CommentThreadDTO> commentThreads = (List<CommentThreadDTO>) response.getData();
+        ArrayList<?> commentThreads = (ArrayList<CommentThreadDTO>) response.getData();
+        // search by keyword
         model.addAttribute("comments", commentThreads);
         model.addAttribute("limit", limit);
+        model.addAttribute("searchKeyword", searchKeyword);
         return "channels/viewComments";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
