@@ -6,4 +6,5 @@ import lombok.Data;
 public class CommentsSearchDTO {
     private String searchKeyword;
     private String channelId;
+    private Integer maxResults;
 }

@@ -28,7 +28,16 @@
     <c:if test="${not empty comments}">
         <div class="row">
             <div class="col-md-12">
+                <div style="display: flex; gap: 15px">
                 <h3>Comments</h3>
+<%--                   choose number of comments input --%>
+                <form action="/channels/view/${channelId}/comments" method="get">
+                    <input type="hidden" name="title" value=<%= title %>>
+                    <input type="hidden" name="description" value=<%= description %>>
+                    <input type="hidden" name="image" value=<%= image %>>
+                    <input type="number" name="limit" value="${limit=comments.size()}" min="1">
+                    <input type="submit" value="Set Limit">
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <c:forEach items="${comments}" var="comment">
@@ -40,8 +49,11 @@
                                                 <img class="img-fluid rounded-circle" style="border-radius: 50%" src="${comment.snippet.topLevelComment.snippet.authorProfileImageUrl}" alt="${comment.snippet.topLevelComment.snippet.authorDisplayName}" referrerpolicy="no-referrer">
                                             </div>
                                             <div>
-                                            <h4>${comment.snippet.topLevelComment.snippet.authorDisplayName}</h4>
-                                            <p>${comment.snippet.topLevelComment.snippet.textDisplay}</p>
+                                                <div style="display: flex; gap: 10px">
+                                                    <h5>${comment.snippet.topLevelComment.snippet.authorDisplayName}</h5>
+                                                    <p>On <a href="https://www.youtube.com/watch?v=${comment.snippet.videoId}">${comment.snippet.videoId}</a></p>
+                                                    </div>
+                                                <p>${comment.snippet.topLevelComment.snippet.textDisplay}</p>
                                             </div>
                                         </div>
                                     </div>

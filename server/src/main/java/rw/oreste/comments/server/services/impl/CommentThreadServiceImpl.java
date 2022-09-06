@@ -23,7 +23,7 @@ public class CommentThreadServiceImpl implements CommentThreadService {
     @Override
     public List<CommentThreadDTO> searchComments(CommentsSearchDTO searchDTO) {
         RestTemplate restTemplate = new RestTemplate();
-        CommentThreadsResponse res = restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&allThreadsRelatedToChannelId="+ searchDTO.getChannelId() +"&key="+apiKey, CommentThreadsResponse.class);
+        CommentThreadsResponse res = restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&allThreadsRelatedToChannelId="+ searchDTO.getChannelId() +"&key="+apiKey+"&maxResults="+searchDTO.getMaxResults(), CommentThreadsResponse.class);
         return res.getItems();
     }
 }

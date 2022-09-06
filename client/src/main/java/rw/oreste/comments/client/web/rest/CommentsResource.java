@@ -26,10 +26,12 @@ public class CommentsResource {
 
 
     @GetMapping
-    public String index(@PathVariable String channelId, Model model) {
+    public String index(@PathVariable String channelId, Model model, HttpServletRequest request) {
+        Integer limit = request.getParameter("limit") == null ? 20 : Integer.parseInt(request.getParameter("limit"));
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("channelId", channelId);
+        requestBody.put("maxResults", limit.toString());
         HttpEntity requestEntity = new HttpEntity(requestBody);
         try {
         ApiResponse response = restTemplate.postForObject(formatURL("/comments/search"), requestEntity, ApiResponse.class);
@@ -39,6 +41,7 @@ public class CommentsResource {
         }
         List<CommentThreadDTO> commentThreads = (List<CommentThreadDTO>) response.getData();
         model.addAttribute("comments", commentThreads);
+        model.addAttribute("limit", limit);
         return "channels/viewComments";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
