@@ -8,7 +8,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-<title>Youtube Comments Scraper</title>
+<title>RYAN KRUEGER COMMENTS FILTER</title>
 <style>
     * {
         font-family: 'DM Sans', sans-serif;
