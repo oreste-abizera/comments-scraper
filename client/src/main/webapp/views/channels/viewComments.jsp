@@ -1,3 +1,5 @@
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -9,6 +11,9 @@
     String title = request.getParameter("title");
     String description = request.getParameter("description");
     String image = request.getParameter("image");
+
+    // function to format date
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 %>
 <div class="mt-5 container">
     <div class="row" style="margin-bottom: 20px">
@@ -50,6 +55,8 @@
                             <p>No comments Found</p>
                         </c:if>
                         <c:if test="${not empty comments}">
+                            <p>Showing ${comments.size()} comments</p>
+
                         <c:forEach items="${comments}" var="comment">
                             <div class="row" style="margin-top: 10px">
                                 <div class="col-md-12">
@@ -62,7 +69,9 @@
                                                 <div style="display: flex; gap: 10px">
                                                     <h5>${comment.snippet.topLevelComment.snippet.authorDisplayName}</h5>
                                                     <p>On <a href="https://www.youtube.com/watch?v=${comment.snippet.videoId}">${comment.snippet.videoId}</a></p>
-                                                    </div>
+                                                <p>At ${comment.snippet.topLevelComment.snippet.publishedAt }</p>
+                                                </p>
+                                                </div>
                                                 <p>${comment.snippet.topLevelComment.snippet.textDisplay}</p>
                                             </div>
                                         </div>
