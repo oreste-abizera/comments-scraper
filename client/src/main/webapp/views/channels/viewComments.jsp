@@ -61,7 +61,7 @@
                             <div class="row" style="margin-top: 10px">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-12" style="display: flex; gap: 20px; align-items: center">
+                                        <div class="col-md-12" style="display: flex; gap: 20px;">
                                             <div>
                                                 <img class="img-fluid rounded-circle" style="border-radius: 50%" src="${comment.snippet.topLevelComment.snippet.authorProfileImageUrl}" alt="${comment.snippet.topLevelComment.snippet.authorDisplayName}" referrerpolicy="no-referrer">
                                             </div>

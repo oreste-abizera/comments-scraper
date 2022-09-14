@@ -22,12 +22,16 @@ public class CommentThreadServiceImpl implements CommentThreadService {
 
     @Override
     public List<CommentThreadDTO> searchComments(CommentsSearchDTO searchDTO) {
+        String searchKeyword = searchDTO.getSearchKeyword();
+        if(searchKeyword.compareTo("") == 4){
+            searchKeyword = "";
+        }
         RestTemplate restTemplate = new RestTemplate();
         Integer maxResults = searchDTO.getMaxResults();
         CommentThreadsResponse response;
-        response = restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&allThreadsRelatedToChannelId="+ searchDTO.getChannelId() +"&key="+apiKey+"&maxResults="+searchDTO.getMaxResults()+"&searchTerms="+searchDTO.getSearchKeyword(), CommentThreadsResponse.class);
+        response = restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&allThreadsRelatedToChannelId="+ searchDTO.getChannelId() +"&key="+apiKey+"&maxResults="+searchDTO.getMaxResults()+"&searchTerms="+searchKeyword, CommentThreadsResponse.class);
         while (response.getNextPageToken() != null && response.getItems().size() < maxResults) {
-            CommentThreadsResponse nextPageResponse = restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&allThreadsRelatedToChannelId="+ searchDTO.getChannelId() +"&key="+apiKey+"&maxResults="+searchDTO.getMaxResults()+"&searchTerms="+searchDTO.getSearchKeyword()+"&pageToken="+response.getNextPageToken(), CommentThreadsResponse.class);
+            CommentThreadsResponse nextPageResponse = restTemplate.getForObject("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&allThreadsRelatedToChannelId="+ searchDTO.getChannelId() +"&key="+apiKey+"&maxResults="+searchDTO.getMaxResults()+"&searchTerms="+searchKeyword+"&pageToken="+response.getNextPageToken(), CommentThreadsResponse.class);
             response.getItems().addAll(nextPageResponse.getItems());
             response.setNextPageToken(nextPageResponse.getNextPageToken());
         }
